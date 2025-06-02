@@ -20,6 +20,10 @@ public class PersonServiceImpl implements PersonService{
 		this.personRepository = personRepository;
 	}
 
+	/*
+	 * This demonstrates Functional Programming
+	 * use of functional interface and passing the code to the method
+	 */
 	@Override
 	public List<Person> getPersonsByAdType(String adType) {
 		List<Person> audience = personRepository.findAll();

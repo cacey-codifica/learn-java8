@@ -5,13 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 
-import org.springframework.util.CollectionUtils;
-
-import com.codifica.java8.FunctionalInterface.FilterPerson;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -24,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SuppressWarnings("unused")
 @Entity
 @Table(name = "person", schema = "codifica_java8")
 public class Person {
@@ -42,9 +37,11 @@ public class Person {
 	@JsonProperty("address")
 	private String address;
 	
+	// unit - kg
 	@JsonProperty("weight")
 	private float weight;
 	
+	// unit - cm
 	@JsonProperty("height")
 	private float height;
 	
@@ -58,7 +55,9 @@ public class Person {
 	
 	@JsonIgnore
 	public boolean isPersonOverweight() {
-		return false;
+		float bmi = this.weight / (this.height/100);
+		if(bmi > 25)  return true; 
+		else return false;
 	}
 	
 	public static List<Person> filterPersons(List<Person> persons, Predicate<Person> filterCriteria){
